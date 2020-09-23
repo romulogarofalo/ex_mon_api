@@ -6,17 +6,14 @@ defmodule ExMonApiWeb.TrainersController do
   def create(conn, params) do
     params
     |> ExMonApi.create_trainer()
-    |> handle_response(conn)
+    |> handle_response(conn, "create.json", :created)
   end
 
-  defp handle_response({:ok, trainer}, conn) do
-    conn
-    |> put_status(:ok)
-    |> render("create.json", trainer: trainer)
+  def show(conn, id) do
+    id
+    |> ExMonApi.fetch_trainer()
+    |> handle_response(conn, "show.json", :ok)
   end
-
-  defp handle_response({:error, _changeset} = error, _conn), do: error
-
 
   def delete(conn, id) do
     id
@@ -29,6 +26,14 @@ defmodule ExMonApiWeb.TrainersController do
     |> put_status(:no_content)
     |> text("")
   end
+
+  defp handle_response({:ok, trainer}, conn, view, status) do
+    conn
+    |> put_status(status)
+    |> render(view, trainer: trainer)
+  end
+
+  defp handle_response({:error, _changeset} = error, _conn, _view, _status), do: error
 
 
 end
