@@ -7,11 +7,12 @@ defmodule ExMonApi.Trainer do
   schema "trainers" do
     field :name, :string
     field :password_hash, :string
+    field :password, :string, virtual: true
     timestamps()
   end
 
 
-  @required_params [:name, :password_hash]
+  @required_params [:name, :password]
 
   def build(params) do
     params

@@ -1,12 +1,16 @@
 defmodule ExMonApiWeb.Router do
   use ExMonApiWeb, :router
 
+  alias ExMonApiWeb
+
   pipeline :api do
     plug :accepts, ["json"]
   end
 
   scope "/api", ExMonApiWeb do
     pipe_through :api
+
+    resources "/trainers", TrainersController
   end
 
   # Enables LiveDashboard only for development
@@ -29,5 +33,6 @@ defmodule ExMonApiWeb.Router do
     pipe_through :api
 
     get "/", WelcomeController, :index
+
   end
 end
