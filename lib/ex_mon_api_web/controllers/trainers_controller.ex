@@ -9,10 +9,16 @@ defmodule ExMonApiWeb.TrainersController do
     |> handle_response(conn, "create.json", :created)
   end
 
-  def show(conn, id) do
+  def show(conn, %{"id" => id}) do
     id
     |> ExMonApi.fetch_trainer()
     |> handle_response(conn, "show.json", :ok)
+  end
+
+  def update(conn, params) do
+    params
+    |> ExMonApi.update_trainer()
+    |> handle_response(conn, "update.json", :ok)
   end
 
   def delete(conn, %{"id" => id}) do
