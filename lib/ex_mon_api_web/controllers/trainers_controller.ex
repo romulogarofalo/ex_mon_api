@@ -15,7 +15,7 @@ defmodule ExMonApiWeb.TrainersController do
     |> handle_response(conn, "show.json", :ok)
   end
 
-  def delete(conn, id) do
+  def delete(conn, %{"id" => id}) do
     id
     |> ExMonApi.delete_trainer()
     |> handle_delete(conn)
@@ -26,6 +26,7 @@ defmodule ExMonApiWeb.TrainersController do
     |> put_status(:no_content)
     |> text("")
   end
+  defp handle_delete({:error, _trainer} = error, _conn), do: error
 
   defp handle_response({:ok, trainer}, conn, view, status) do
     conn
