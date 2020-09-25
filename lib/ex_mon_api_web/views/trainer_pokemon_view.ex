@@ -3,6 +3,8 @@ defmodule ExMonApiWeb.TrainerPokemonView do
 
   alias ExMonApi.Trainer.Pokemon
 
+  def render("show.json", params), do: params
+
   def render("create.json", %{
     trainer_pokemon: %Pokemon{
         id: id,
