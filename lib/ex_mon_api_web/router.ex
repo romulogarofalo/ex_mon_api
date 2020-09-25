@@ -12,6 +12,7 @@ defmodule ExMonApiWeb.Router do
 
     resources "/trainers", TrainersController
     get "/pokemon/:name", PokemonsController, :show
+    post "/trainer_pokemon", TrainerPokemonController, :create
   end
 
   # Enables LiveDashboard only for development

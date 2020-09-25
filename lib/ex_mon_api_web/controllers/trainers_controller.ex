@@ -34,10 +34,10 @@ defmodule ExMonApiWeb.TrainersController do
   end
   defp handle_delete({:error, _trainer} = error, _conn), do: error
 
-  defp handle_response({:ok, trainer}, conn, view, status) do
+  defp handle_response({:ok, trainer_pokemon}, conn, view, status) do
     conn
     |> put_status(status)
-    |> render(view, trainer: trainer)
+    |> render(view, trainer: trainer_pokemon)
   end
 
   defp handle_response({:error, _changeset} = error, _conn, _view, _status), do: error
