@@ -9,7 +9,7 @@ defmodule ExMonApiWeb.TrainerPokemonView do
         name: name,
         nickname: nickname,
         types: types,
-        trainer_id: trainer_id,
+        trainer: %{id: trainer_id, name: trainer_name},
         weight: weight,
       }
     }) do
@@ -19,7 +19,7 @@ defmodule ExMonApiWeb.TrainerPokemonView do
           name: name,
           nickname: nickname,
           types: types,
-          trainer_id: trainer_id,
+          trainer: %{trainer_id: trainer_id, name: trainer_name},
           weight: weight,
         }
       }

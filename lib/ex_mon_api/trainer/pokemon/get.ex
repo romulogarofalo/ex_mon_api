@@ -12,7 +12,7 @@ defmodule ExMonApi.Trainer.Pokemon.Get do
   defp get(uuid) do
     case Repo.get(Pokemon, uuid) do
       nil -> {:error, "Pokemon of Trainer not found"}
-      pokemon -> {:ok, pokemon}
+      pokemon -> {:ok, Repo.preload(pokemon, :trainer)}
     end
   end
 end
