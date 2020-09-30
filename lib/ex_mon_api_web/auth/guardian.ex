@@ -4,8 +4,7 @@ defmodule ExMonApiWeb.Auth.Guardian do
   alias ExMonApi.{Repo, Trainer}
 
   def subject_for_token(resource, _claims) do
-    sub = to_string(resource.id)
-    {:ok, sub}
+    {:ok, resource}
   end
 
   # def subject_for_token(_, _) do
