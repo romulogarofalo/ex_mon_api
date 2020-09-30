@@ -14,6 +14,18 @@ defmodule ExMonApiWeb.TrainersController do
     end
   end
 
+  def login(conn, trainer) do
+    Guardian.authenticate(trainer)
+    |> login_reply(conn)
+  end
+
+  defp login_reply({:ok, trainer}, conn) do
+    conn
+    |> put_status(:ok)
+    |> Guardian.Plug.sign_in(trainer)   #This module's full name is Auth.UserManager.Guardian.Plug,
+    |> render("show.json", trainer)   #and the arguments specified in the Guardian.Plug.sign_in()
+  end
+
   def show(conn, %{"id" => id}) do
     id
     |> ExMonApi.fetch_trainer()
