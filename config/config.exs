@@ -33,3 +33,7 @@ import_config "#{Mix.env()}.exs"
 config :ex_mon_api, ExMonApiWeb.Auth.Guardian,
   issuer: "ExMonApi",
   secret_key: "123"
+
+config :ex_mon_api, ExMonApiWeb.Auth.Pipeline,
+  module: ExMonApiWeb.Auth.Guardian,
+  error_handler: ExMonApiWeb.Auth.ErrorHandler
