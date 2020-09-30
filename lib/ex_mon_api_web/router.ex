@@ -7,12 +7,27 @@ defmodule ExMonApiWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :auth do
+    plug ExMonApi.Auth.Pipeline
+  end
+
+  # pipeline :ensure_auth do
+  #   plug Guardian.Plug.EnsureAuthenticated
+  # end
+
   scope "/api", ExMonApiWeb do
-    pipe_through :api
+    # pipe_through [:api, :auth, :ensure_auth]
 
     resources "/trainers", TrainersController
     get "/pokemon/:name", PokemonsController, :show
     resources "/trainer_pokemon", TrainerPokemonController
+  end
+
+  scope "/api", ExMonApiWeb do
+    # pipe_through [:api, :auth]
+
+    post "/login", TrainersController, :login
+    post "/sign_up", TrainersController, :create
   end
 
   # Enables LiveDashboard only for development
