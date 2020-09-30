@@ -8,7 +8,7 @@ defmodule ExMonApiWeb.Router do
   end
 
   pipeline :auth do
-    plug ExMonApi.Auth.Pipeline
+    plug ExMonApiWeb.Auth.Pipeline
   end
 
   # pipeline :ensure_auth do
@@ -16,18 +16,18 @@ defmodule ExMonApiWeb.Router do
   # end
 
   scope "/api", ExMonApiWeb do
-    # pipe_through [:api, :auth, :ensure_auth]
+    pipe_through [:api, :auth]
 
-    resources "/trainers", TrainersController
-    get "/pokemon/:name", PokemonsController, :show
+    resources "/trainers", TrainersController, only: [:show, :delete, :update]
     resources "/trainer_pokemon", TrainerPokemonController
   end
 
   scope "/api", ExMonApiWeb do
-    # pipe_through [:api, :auth]
+    pipe_through [:api]
 
     post "/login", TrainersController, :login
-    post "/sign_up", TrainersController, :create
+    post "/trainers", TrainersController, :create
+    get "/pokemon/:name", PokemonsController, :show
   end
 
   # Enables LiveDashboard only for development
